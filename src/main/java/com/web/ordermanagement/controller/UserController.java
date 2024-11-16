@@ -1,2 +1,5 @@
-package com.web.ordermanagement.controller;public class UserController {
+package com.web.ordermanagement.controller;
+
+public class UserController {
+    
 }
