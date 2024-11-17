@@ -26,6 +26,7 @@ public class ProductService {
         product.setManufacturing_date(productObject.getManufacturing_date());
         product.setPrice(productObject.getPrice());
         product.setExpiry_date(productObject.getExpiry_date());
+        product.setQuantity(productObject.getQuantity());
         product.setCreated_at(Instant.now());
         product.setUpdated_at(Instant.now());
         productRepository.save(product);
@@ -51,6 +52,7 @@ public class ProductService {
             prodObj.setName(productObj.getName());
             prodObj.setDescription(productObj.getDescription());
             prodObj.setPrice(productObj.getPrice());
+            prodObj.setQuantity(productObj.getQuantity());
             prodObj.setManufacturing_date(productObj.getManufacturing_date());
             prodObj.setExpiry_date(productObj.getExpiry_date());
             prodObj.setUpdated_at(Instant.now());

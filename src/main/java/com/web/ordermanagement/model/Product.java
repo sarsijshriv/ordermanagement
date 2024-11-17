@@ -14,6 +14,7 @@ public class Product {
     Long product_id;
     String name;
     String description;
+    Integer quantity;
     Date manufacturing_date;
     Date expiry_date;
     Double price;
@@ -23,15 +24,24 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long product_id, String name, String description, Date manufacturing_date, Date expiry_date, Double price, Instant created_at, Instant updated_at) {
+    public Product(Long product_id, String name, String description, Integer quantity, Date manufacturing_date, Date expiry_date, Double price, Instant created_at, Instant updated_at) {
         this.product_id = product_id;
         this.name = name;
         this.description = description;
+        this.quantity = quantity;
         this.manufacturing_date = manufacturing_date;
         this.expiry_date = expiry_date;
         this.price = price;
         this.created_at = created_at;
         this.updated_at = updated_at;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Long getProduct_id() {
