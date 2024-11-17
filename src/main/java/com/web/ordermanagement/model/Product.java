@@ -2,6 +2,8 @@ package com.web.ordermanagement.model;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,17 +17,21 @@ public class Product {
     Date manufacturing_date;
     Date expiry_date;
     Double price;
+    Instant created_at;
+    Instant updated_at;
 
     public Product() {
     }
 
-    public Product(Long product_id, String name, String description, Date manufacturing_date, Date expiry_date, Double price) {
+    public Product(Long product_id, String name, String description, Date manufacturing_date, Date expiry_date, Double price, Instant created_at, Instant updated_at) {
         this.product_id = product_id;
         this.name = name;
         this.description = description;
         this.manufacturing_date = manufacturing_date;
         this.expiry_date = expiry_date;
         this.price = price;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
     public Long getProduct_id() {
@@ -74,5 +80,21 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Instant getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Instant created_at) {
+        this.created_at = created_at;
+    }
+
+    public Instant getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Instant updated_at) {
+        this.updated_at = updated_at;
     }
 }

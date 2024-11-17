@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,8 @@ public class ProductService {
         product.setManufacturing_date(productObject.getManufacturing_date());
         product.setPrice(productObject.getPrice());
         product.setExpiry_date(productObject.getExpiry_date());
+        product.setCreated_at(Instant.now());
+        product.setUpdated_at(Instant.now());
         productRepository.save(product);
         return product;
     }
@@ -50,6 +53,7 @@ public class ProductService {
             prodObj.setPrice(productObj.getPrice());
             prodObj.setManufacturing_date(productObj.getManufacturing_date());
             prodObj.setExpiry_date(productObj.getExpiry_date());
+            prodObj.setUpdated_at(Instant.now());
             productRepository.save(prodObj);
             return ResponseEntity.ok(prodObj);
         }

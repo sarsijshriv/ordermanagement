@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,17 +35,19 @@ public class UserService {
         user.setName(customerObject.getName());
         user.setAddress(customerObject.getAddress());
         user.setDate_of_birth(customerObject.getDate_of_birth());
+        user.setCreated_at(Instant.now());
+        user.setUpdated_at(Instant.now());
         userRepository.save(user);
         return user;
     }
 
-    public Optional<Users> deleteUser(Long id) {
+    public ResponseEntity<?> deleteUser(Long id) {
         Optional<Users> user = userRepository.findById(id);
         if(user.isPresent()) {
             userRepository.deleteById(id);
-            return user;
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(user.get());
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user does not exists");
     }
 
     public ResponseEntity<?> updateUser(Long id, Users userObject) {
@@ -54,6 +57,7 @@ public class UserService {
             updateUser.setName(userObject.getName());
             updateUser.setAddress(userObject.getAddress());
             updateUser.setDate_of_birth(userObject.getDate_of_birth());
+            updateUser.setUpdated_at(Instant.now());
             userRepository.save(updateUser);
             return ResponseEntity.accepted().body(updateUser);
         }

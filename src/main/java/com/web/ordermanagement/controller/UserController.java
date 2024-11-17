@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -39,7 +38,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    Optional<Users> deleteUser(@PathVariable Long id){
+    ResponseEntity<?> deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
     }
 
