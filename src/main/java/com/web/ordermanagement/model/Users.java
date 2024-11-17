@@ -1,7 +1,6 @@
 package com.web.ordermanagement.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GeneratorType;
 
 import java.util.Date;
 
