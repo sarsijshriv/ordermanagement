@@ -2,8 +2,11 @@ package com.web.ordermanagement.service;
 
 import com.web.ordermanagement.model.Users;
 import com.web.ordermanagement.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -13,11 +16,11 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    @Autowired
     UserRepository userRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public List<Users> getAllUsers() {
         return userRepository.findAll();
@@ -32,7 +35,9 @@ public class UserService {
 
     public Users createUser(Users customerObject) {
         Users user = new Users();
+        user.setPassword(passwordEncoder.encode(customerObject.getPassword()));
         user.setName(customerObject.getName());
+        user.setEmail(customerObject.getEmail());
         user.setAddress(customerObject.getAddress());
         user.setDate_of_birth(customerObject.getDate_of_birth());
         user.setCreated_at(Instant.now());
