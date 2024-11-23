@@ -2,6 +2,7 @@ package com.web.ordermanagement.service;
 
 import com.web.ordermanagement.model.Users;
 import com.web.ordermanagement.repository.UserRepository;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,5 +68,17 @@ public class UserService {
             return ResponseEntity.accepted().body(updateUser);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    }
+
+    public ResponseEntity<?> authenticateUser(Users userObject) {
+        if(userObject.getEmail() == null || userObject.getPassword() == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password is missing");
+        Optional<Users> user = userRepository.findByEmail(userObject.getEmail());
+        if(user.isPresent()){
+            if(passwordEncoder.matches(userObject.getPassword(), user.get().getPassword()))
+                return ResponseEntity.ok("Logged in!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username or password is incorrect");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username or password is incorrect");
     }
 }

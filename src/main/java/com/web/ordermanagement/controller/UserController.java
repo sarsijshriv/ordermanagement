@@ -2,6 +2,7 @@ package com.web.ordermanagement.controller;
 
 import com.web.ordermanagement.model.Users;
 import com.web.ordermanagement.service.UserService;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +28,14 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("/register")
     Users createUser(@RequestBody Users userObject){
         return userService.createUser(userObject);
+    }
+
+    @PostMapping("/login")
+    ResponseEntity<?> authenicateUser(@RequestBody Users userObject) {
+        return userService.authenticateUser(userObject);
     }
 
     @PutMapping("/{id}")
