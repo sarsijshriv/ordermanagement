@@ -2,6 +2,7 @@ package com.web.ordermanagement.controller;
 
 import com.web.ordermanagement.model.Users;
 import com.web.ordermanagement.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    Users createUser(@RequestBody Users userObject){
+    Users createUser(@Valid @RequestBody Users userObject){
         return userService.createUser(userObject);
     }
 
     @PostMapping("/login")
-    ResponseEntity<?> authenicateUser(@RequestBody Users userObject) {
+    ResponseEntity<?> authenicateUser(@Valid @RequestBody Users userObject) {
         return userService.authenticateUser(userObject);
     }
 
