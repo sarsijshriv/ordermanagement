@@ -1,6 +1,6 @@
 package com.web.ordermanagement.model;
 
-import com.web.ordermanagement.misc.OrderStatus;
+import com.web.ordermanagement.misc.OrderDeliveryStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +16,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     Users users;
-    OrderStatus order_state;
+    OrderDeliveryStatus order_state;
     Double total_amount;
     Instant created_at;
 }

@@ -1,6 +1,6 @@
 package com.web.ordermanagement.misc;
 
-public enum OrderStatus {
+public enum OrderDeliveryStatus {
     PENDING,
     SHIPPED,
     DELIVERED,
