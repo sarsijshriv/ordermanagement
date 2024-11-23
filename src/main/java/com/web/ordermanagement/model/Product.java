@@ -13,13 +13,13 @@ import java.util.Date;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long product_id;
-    String name;
-    String description;
-    Integer quantity;
-    Date manufacturing_date;
-    Date expiry_date;
-    Double price;
-    Instant created_at;
-    Instant updated_at;
+    private Long product_id;
+    private String name;
+    private String description;
+    private Integer quantity;
+    private Date manufacturing_date;
+    private Date expiry_date;
+    private Double price;
+    private Instant created_at;
+    private Instant updated_at;
 }

@@ -12,11 +12,12 @@ import java.time.Instant;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long order_id;
+    private Long order_id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    Users users;
-    OrderDeliveryStatus order_state;
-    Double total_amount;
-    Instant created_at;
+    private Users users;
+    private OrderDeliveryStatus order_state;
+    private Double total_amount;
+    private Instant created_at;
+    private Instant updated_at;
 }
