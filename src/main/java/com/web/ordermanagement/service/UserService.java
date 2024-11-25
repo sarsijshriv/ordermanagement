@@ -1,12 +1,11 @@
 package com.web.ordermanagement.service;
 
+import com.web.ordermanagement.configurations.JwtConfiguration;
 import com.web.ordermanagement.model.Users;
 import com.web.ordermanagement.repository.UserRepository;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,8 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    JwtConfiguration jwtConfiguration;
 
 
     public List<Users> getAllUsers() {
@@ -76,7 +77,7 @@ public class UserService {
         Optional<Users> user = userRepository.findByEmail(userObject.getEmail());
         if(user.isPresent()){
             if(passwordEncoder.matches(userObject.getPassword(), user.get().getPassword()))
-                return ResponseEntity.ok("Logged in!");
+                return ResponseEntity.ok(jwtConfiguration.generateToken(user.get().getEmail()));
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username or password is incorrect");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username or password is incorrect");
