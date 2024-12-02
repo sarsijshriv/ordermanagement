@@ -5,6 +5,7 @@ import com.web.ordermanagement.repository.ProductRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
@@ -19,6 +20,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    @Transactional
     public Product createProduct(Product productObject) {
         Product product = new Product();
         product.setName(productObject.getName());
@@ -33,10 +35,12 @@ public class ProductService {
         return product;
     }
 
+    @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<?> findProductById(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if(product.isPresent()){
@@ -45,6 +49,7 @@ public class ProductService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product does not exists.");
     }
 
+    @Transactional
     public ResponseEntity<?> updateProductById(Long id, Product productObj) {
         Optional<Product> product = productRepository.findById(id);
         if(product.isPresent()){
@@ -62,6 +67,7 @@ public class ProductService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product does not exists.");
     }
 
+    @Transactional
     public ResponseEntity<?> deleteProductById(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if(product.isPresent()){

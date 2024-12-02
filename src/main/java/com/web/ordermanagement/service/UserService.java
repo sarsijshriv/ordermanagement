@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
@@ -24,10 +25,12 @@ public class UserService {
     JwtConfiguration jwtConfiguration;
 
 
+    @Transactional(readOnly = true)
     public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<?> getUserById(Long id) {
         Optional<Users> user = userRepository.findById(id);
         if(user.isPresent())
@@ -35,6 +38,7 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
+    @Transactional
     public Users createUser(Users customerObject) {
         Users user = new Users();
         user.setPassword(passwordEncoder.encode(customerObject.getPassword()));
@@ -48,6 +52,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional
     public ResponseEntity<?> deleteUser(Long id) {
         Optional<Users> user = userRepository.findById(id);
         if(user.isPresent()) {
@@ -57,6 +62,7 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user does not exists");
     }
 
+    @Transactional
     public ResponseEntity<?> updateUser(Long id, Users userObject) {
         Optional<Users> user = userRepository.findById(id);
         if(user.isPresent()){
@@ -71,6 +77,7 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<?> authenticateUser(Users userObject) {
         if(userObject.getEmail() == null || userObject.getPassword() == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password is missing");
