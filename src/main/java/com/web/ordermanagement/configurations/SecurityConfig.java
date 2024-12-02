@@ -3,6 +3,7 @@ package com.web.ordermanagement.configurations;
 import com.web.ordermanagement.misc.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,7 +24,8 @@ public class SecurityConfig {
         return security.formLogin(cus -> cus.disable())
                 .csrf(cus -> cus.disable())
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("register", "login").permitAll().anyRequest().authenticated())
+                        request.requestMatchers("/register", "/login").permitAll().anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }
